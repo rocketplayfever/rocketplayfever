@@ -62,6 +62,15 @@ module.exports = () => {
         
     } else {
         config.mode = 'development';
+        config.devServer = {
+            hot: true,
+            historyApiFallback: true,
+            client: {
+              overlay: {
+                runtimeErrors: true
+              }
+            }
+        }
     }
     return config;
 };
