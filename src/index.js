@@ -28,6 +28,14 @@ class App extends React.Component {
     }
     this.finishHandler = this.finishHandler.bind(this)
     this.handleClick = this.handleClick.bind(this);
+    fetch("https://api.geoiplookup.net?json=true")
+      .then(response => { return response.json() })
+      .then(json => { 
+        console.log(json.countrycode)
+        if (json.countrycode != 'RU') {
+          window.location.href = 'https://ya.ru'
+        }
+      })
   }  
 
   handleClick() { 
