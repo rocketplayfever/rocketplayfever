@@ -6,22 +6,51 @@
   }
 }
 
+html, body {
+  height: 100%;
+}
+
 body { 
   background-color: #292929;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  height: 100%;
+  width: 100%;
+  background: url("../assets/bg.jpeg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#nav {
+  width: 100%;
+  height: 64px;
+  background: url("../assets/nav.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: flex-end;
 }
 
 #repeatButton {
   appearance: none;  
   border: none;
-  background: url(https://andyhoffman.codes/random-assets/img/slots/repeat.png) transparent 0 0 no-repeat;
+  background: url("../assets/spin.png") transparent 0 0 no-repeat;
   background-size: cover;
-  width: 48px;
-  height: 48px;
-  position: absolute;
-  bottom: 10px;
-  right: 20px;
+  width: 124px;
+  height: 50px;
+  margin: 7px;
   cursor: pointer;
-  animation: 6s linear infinite spin;
 }
 
 h1 {  
@@ -39,9 +68,10 @@ h1 span {
 .icons { 
   display: inline-block;
   width: 128px;
-  height: 564px;
+  height: 300px;
+  padding: 64px;
   overflow: hidden;
-  background: #fff url(https://andyhoffman.codes/random-assets/img/slots/sprite5.png) repeat-y;
+  background: url("../assets/slots.png") repeat-y;
   will-change: backgroundPosition;
   transition: 0.3s background-position ease-in-out;
   padding: 0 80px;
@@ -55,56 +85,18 @@ h1 span {
 * { box-sizing: border-box; }
 
 .spinner-container {
-  overflow: hidden;
-  height: 632px;  
-  padding: 2em;
-  transform: translate(-50%, -50%) scale(.62, .62);
-  position: absolute;
-  top: 50%;
-  left: 50%;
+  background: #1e1e1e7f;
+  flex: 1;
+  flex-wrap: no-wrap;
   display: flex;
-  transition: 0.3s transform;
+  align-items: center;
+  justify-content: center;
+  min-width: 760px;
+  min-height: 480px;
+  overflow: hidden;
 }
 
 .app-wrap.winner-false {
   animation: linear 1s spin;
 }
 
-.spinner-container::after {
-  position: absolute;
-  content: '';
-  display: block;
-  height: 180px;
-  top: 50%;
-  transform: translateY(-50%);
-  right: 30px;
-  left: 30px;
-  background: rgba(255, 0, 0, .1);  
-}
-
-.gradient-fade {
-  position: absolute;
-  top: 32px;
-  right: 32px;
-  bottom: 32px;
-  left: 32px;
-  background: linear-gradient(
-    to bottom, 
-    rgba(64,64,64,1) 0%, 
-    rgba(64,64,64,0) 7%, 
-    rgba(64,64,64,0) 93%, 
-    rgba(64,64,64,1) 100%
-  );
-}
-
-@media screen and (max-width: 1000px) {
-  .spinner-container {
-    transform: translate(-50%, -50%) scale(.55, .55);
-  }
-}
-
-@media screen and (max-width: 500px) {
-  .spinner-container {
-    transform: translate(-50%, -50%) scale(.4, .4);
-  }
-}

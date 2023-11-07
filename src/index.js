@@ -44,20 +44,9 @@ class App extends React.Component {
     this._child1.forceUpdateHandler();
     this._child2.forceUpdateHandler();
     this._child3.forceUpdateHandler();
+    this._child4.forceUpdateHandler();
+    this._child5.forceUpdateHandler();
   }
-
-  static loser = [
-    'Not quite', 
-    'Stop gambling', 
-    'Hey, you lost!', 
-    'Ouch! I felt that',      
-    'Don\'t beat yourself up',
-    'There goes the college fund',
-    'I have a cat. You have a loss',
-    'You\'re awesome at losing',
-    'Coding is hard',
-    'Don\'t hate the coder'
-  ];
 
   static matches = [];
 
@@ -78,9 +67,6 @@ class App extends React.Component {
 
   render() {
     const { winner } = this.state;
-    const getLoser = () => {       
-      return App.loser[Math.floor(Math.random()*App.loser.length)]
-    }
     let repeatButton = null;
     let winningSound = null;
 
@@ -93,20 +79,23 @@ class App extends React.Component {
     }
 
     return (
-      <div>
+      <>
         {winningSound}
-        <h1 style={{ color: 'white'}}>
-          <span>{winner === null ? 'Waiting…' : winner ? '🤑 Pure skill! 🤑' : getLoser()}</span>
-        </h1>
 
         <div className={`spinner-container`}>
+          <div id="spins">
           <Spinner onFinish={this.finishHandler} ref={(child) => { this._child1 = child; }} timer="1000" />
           <Spinner onFinish={this.finishHandler} ref={(child) => { this._child2 = child; }} timer="1400" />
           <Spinner onFinish={this.finishHandler} ref={(child) => { this._child3 = child; }} timer="2200" />
+          <Spinner onFinish={this.finishHandler} ref={(child) => { this._child4 = child; }} timer="3000" />
+          <Spinner onFinish={this.finishHandler} ref={(child) => { this._child5 = child; }} timer="3400" />
           <div className="gradient-fade"></div>
+          </div>
         </div>
-        {repeatButton}          
-      </div>
+        <div id="nav">
+          {repeatButton}
+        </div>          
+      </>
     );
   }
 }  
@@ -149,7 +138,7 @@ class Spinner extends React.Component {
   speed = Spinner.iconHeight * this.multiplier;    
 
   setStartPosition() {
-    return ((Math.floor((Math.random()*9))) * Spinner.iconHeight)*-1;
+    return ((Math.floor((Math.random()*7))) * Spinner.iconHeight)*-1;
   }
 
   moveBackground() {
@@ -161,7 +150,7 @@ class Spinner extends React.Component {
 
   getSymbolFromPosition() {
     let { position } = this.state;
-    const totalSymbols = 9;
+    const totalSymbols = 7;
     const maxPosition = (Spinner.iconHeight * (totalSymbols-1)*-1);
     let moved = (this.props.timer/100) * this.multiplier
     let startPosition = this.start;
