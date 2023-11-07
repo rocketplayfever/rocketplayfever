@@ -1,0 +1,151 @@
+@import url(https://fonts.googleapis.com/css?family=Koh Santepheap);
+@keyframes spin {
+  to {
+    transform: rotate(360deg)
+  }
+}
+
+html, body {
+  height: 100%;
+}
+
+body { 
+  background-color: #292929;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  height: 100%;
+  width: 100%;
+  background: url(7f563d663d716caf4a89.jpeg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.nav {
+  width: 100%;
+  height: 64px;
+  background: url(312b3e4d469c4b0a91c2.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+#repeatButton {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;  
+  border: none;
+  background: url(23f5670c3e2ad8b8cb74.png) transparent 0 0 no-repeat;
+  background-size: cover;
+  width: 124px;
+  height: 50px;
+  margin: 7px;
+  cursor: pointer;
+}
+
+h1 {  
+  font-size: 100%;  
+  font-family: 'Cairo', sans-serif;
+}
+
+h1 span {
+  color: aliceblue;
+  border: 1px solid hsla(208, 100%, 97.1%, .1);
+  display: inline-block;
+  padding: 0.75rem 1rem;
+}
+
+.icons { 
+  display: inline-block;
+  width: 80px;
+  height: 288px;
+  overflow: hidden;
+  background: url(2c1f35e3746fd34ba611.png) repeat-y;
+  background-size: cover;
+  will-change: backgroundPosition;
+  transition: 0.3s background-position ease-in-out;
+  padding: 0 32px;
+  transform: translateZ(0);
+}
+
+#balance {
+  font-family: 'Koh Santepheap', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  border-radius: 8px;
+  background: linear-gradient(180deg, #0A0E42 0%, #000 100%), #FFF;
+  display: flex;
+  padding: 8px;
+  gap: 8px;
+}
+
+#balance_coin {
+  width: 25px;
+  height: 25px;
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAaCAYAAABCfffNAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAATFSURBVHgBnZZbaFxFGMe/mTPn7CXZbJJNmzRNSG0TbRrbKF4KrSYV7YsvPgiCUCmBeIFi1L5IKWIibfFBsQqKWKj6KFKQgiJ4afAGRmnaYg2G1Gzo5tLNbm5nL+c2M35ztmmSJptsPTDMcs6e7zff/P/zfYdACZecv9bCNbGXyHwlUKgEIeapXjYGAXaFkLviG71PigaeHawUzHiFaPQQAa8ZZA6kyAGI7M2Bv0HHAMFLAFUfQXX6LCHP8JIhTupijxaI9FGdVfoBZXY1AGfJEexY4DkuSLolDqH2vtCW/Z+tC5FSUnf6j3dZRf2rBFw/EM8nYebqj2ClEyA8CwgFoJoAbmUgXBODcO1mvKeBcGwQXAcafaAv0vJsb1GINfX7mUBVUzfIvB88NXgevNwCVLXuhVDNJoRmcCz4s3SzkBlPwMw/w0AZg+i2JuC2AlEwah46Hd3z4murINn4dydCtTuPE+KBMz8Gie8/hq2dhyEQjeJWmUsAjgAPM7RxIZYNnmVBPpWCuX/jEGmoV7uBw4Dyxn1Ho/cdee8WJDn4aUus+ZFh1ADchesw0X8WGg6+BBoTywA4c3MVQA2Ow14wITORxIyjuK0eED1qRloO7qtu7/6LKki0ruUdBVAaJAfOwdbHuu4IoGYpOBgVIbBmTNTHAWc2EclPDp/0M7nx0+k9sd2dl7WADvMjv6L6FKLb24pukYcAvhxg2ytgnsWBEOmbRAvGRG37E7XUqK55WgGUTXMTw+sC+CLAxqB2YV4O8IVHQ0gwgGM2VmqMZpLpQ4zp7IACeJkUGNGaDUUuBFtctb0CwB3L/59E8wg8OwqUnR4+QKkmd6iD5maSEIzVbAywigDsAkD9xugoBPO3Tbq53RSIqFWCe7l5YAH6/wH2TQAIwFIEWiCM5wcPKXcYk16Gg2CMaEowXAH3igOUyPb6AOVSNdCb/iGlVFIqXHNK1SIWwDKYN1e4aHUGVhGAtQLAQhVYejQ/E3RUivL83KjaLj3ogrB5cRfZa4h8CyALAFYYegQVsGd9CKWBKZqZHL+gqinaAThnpWngLIq8DLCYhRHAgskKAKUJpV/Q/I3kl7mppP8y07PgWGWlu2g5ADPQcA43PgjOXLywVVpIYh3op3c///XQ/GjiB247aLdZrOPYQjxakotuB+jlMcwiAAIruLpHJPu8teuruF+7zPHJN7LTaVuBPHMIWGU7VlL9jgHRXU9BfmLAvyckM11O+lR8JT98+M1YorujmhtB43GJNcczJyHU2Amumcayn9wQEK7bCeVNj8Lc3+fxMeqEnc3Jy2O7jvzy7aqmNfxJ5wdlm2MvCzwrqiSUNXXgwQrBwshvYI4OLgFUcEOHcH0bRLbvBzs9Bua1frQtFABZ71Rrz5/H1+yM6hp6/+HeYHXFm1Jgi3XUyg0I1bVBYFMzMkTBpnoQz9QslvPrkBu/6K9e3cd+BbZpH2s7evntou138bp0qvU5ozz8FqVkG3ddvz+ozFQtKlhzyaIFF2monTvCc+4L975+9cLt8Yp+EqlnV062HJZAurAhdRDfrksAwPokuVRfH/2e7Z1JhL1zT/aM2GsGghKugRM7Gpkn7yGUNEgCMUwoLaRIUyl/vr83PrfR+/8BepwrEQTPatIAAAAASUVORK5CYII=) no-repeat;
+  background-size: cover;
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 1.25),
+       only screen and (min-device-pixel-ratio: 1.25),
+       only screen and (min-resolution: 1.25dppx) {
+    .icons {
+      background: url(d9a646e8fce67bcd4d1f.png) repeat-y;
+      background-size: cover;
+    }
+    #repeatButton {
+      background: url(be84ab181c24df7294c0.png) transparent 0 0 no-repeat;
+      background-size: cover;
+    }
+}
+
+
+.icons:nth-child(2) {
+  margin: 0 8px;
+}
+
+* { box-sizing: border-box; }
+
+.spinner-container {
+  flex: 1;
+  flex-wrap: no-wrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 25px;
+  background: radial-gradient(60.39% 60.39% at 50% 50%, #372030 25.52%, #763E50 54.69%, #2501B8 78.65%, #010101 100%);
+  flex-shrink: 0;
+}
+.spinner-container::after {
+  position: absolute;
+  content: '';
+  display: block;
+  height: 180px;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 30px;
+  left: 30px;
+  background: rgba(255, 0, 0, .1);  
+}
+
+#spins {
+  border: 0.365px solid #AFAD59;
+}
+
+.app-wrap.winner-false {
+  animation: linear 1s spin;
+}
+
