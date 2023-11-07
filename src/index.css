@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Koh%20Santepheap');
+@import url('https://fonts.googleapis.com/css?family=Koh Santepheap');
 
 @keyframes spin {
   to {
@@ -67,8 +67,8 @@ h1 span {
 
 .icons { 
   display: inline-block;
-  width: 90px;
-  height: 240px;
+  width: 80px;
+  height: 288px;
   overflow: hidden;
   background: url("../assets/slots.png") repeat-y;
   background-size: cover;
@@ -79,7 +79,7 @@ h1 span {
 }
 
 #balance {
-  font-family: 'Koh Santepheap' sans-serif;
+  font-family: 'Koh Santepheap', sans-serif;
   font-size: 20px;
   font-weight: 700;
   color: #fff;

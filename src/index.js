@@ -82,9 +82,9 @@ class App extends React.Component {
         <div className="nav"><div id="balance"><span id="balance_coin"></span>47000</div></div>
         <div className={`spinner-container`}>
           <div id="spins">
-            <Spinner onFinish={this.finishHandler} ref={(child) => { this._child1 = child; }} timer="1000" />
-            <Spinner onFinish={this.finishHandler} ref={(child) => { this._child2 = child; }} timer="1400" />
-            <Spinner onFinish={this.finishHandler} ref={(child) => { this._child3 = child; }} timer="2200" />
+            <Spinner name="1" onFinish={this.finishHandler} ref={(child) => { this._child1 = child; }} timer="1000" />
+            <Spinner name="2" onFinish={this.finishHandler} ref={(child) => { this._child2 = child; }} timer="1400" />
+            <Spinner name="3" onFinish={this.finishHandler} ref={(child) => { this._child3 = child; }} timer="2200" />
             <div className="gradient-fade"></div>
           </div>
         </div>
@@ -127,14 +127,14 @@ class Spinner extends React.Component {
     position: 0,
     lastPosition: null
   }
-  static iconHeight = 90;
+  static iconHeight = 96;
   multiplier = Math.floor(Math.random() * (4 - 1) + 1);
 
   start = this.setStartPosition();
   speed = Spinner.iconHeight * this.multiplier;
 
   setStartPosition() {
-    return ((Math.floor((Math.random() * 7))) * Spinner.iconHeight) * -1;
+    return (((Math.floor((Math.random() * 7))) * Spinner.iconHeight) * -1);
   }
 
   moveBackground() {
@@ -188,7 +188,7 @@ class Spinner extends React.Component {
 
   render() {
     let { position, current } = this.state;
-    console.log(`pos: ${position} ${current}`)
+    console.log(`timer ${this.timer} pos ${this.props.name}: ${position} ${current}`)
     return (
       <div
         style={{ backgroundPosition: '0px ' + position + 'px' }}
