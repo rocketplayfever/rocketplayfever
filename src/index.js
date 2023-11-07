@@ -20,6 +20,30 @@ function WinningSound() {
   );
 }
 
+function Modal({ isVisible, onClose }) {
+  const display = isVisible ? "block" : "none"
+  const handleClose = (e) => {
+    e.preventDefault()
+    onClose()
+  }
+  return (
+    <div style={{ display: display }} className="modal">
+      <div className="modal-content">
+        <div className="modal-header">
+          <h2>You win!</h2>
+        </div>
+        <div className="modal-body">
+          <p>Congratulations!</p>
+        </div>
+        <img className="modal-image" src={require("../assets/coins@2x.png")} />
+        <div className="modal-footer">
+          <a href="#" className="close" onClick={handleClose}></a>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -51,7 +75,7 @@ class App extends React.Component {
   finishHandler(value) {
     App.matches.push(value);
 
-    if (App.matches.length === 3) {
+    if (App.matches.length === 1) {
       const { winner } = this.state;
       const first = App.matches[0];
       let results = App.matches.every(match => match === first)
@@ -91,6 +115,11 @@ class App extends React.Component {
         <div className="nav">
           {repeatButton}
         </div>
+        <Modal isVisible={winner} onClose={() => {
+          this.setState({
+            winner: false
+          })
+        }} />
       </>
     );
   }
@@ -188,7 +217,6 @@ class Spinner extends React.Component {
 
   render() {
     let { position, current } = this.state;
-    console.log(`timer ${this.timer} pos ${this.props.name}: ${position} ${current}`)
     return (
       <div
         style={{ backgroundPosition: '0px ' + position + 'px' }}
