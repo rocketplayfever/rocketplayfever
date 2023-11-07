@@ -59,7 +59,7 @@ module.exports = () => {
     if (isProduction) {
         config.mode = 'production';
         
-        config.plugins.push(new MiniCssExtractPlugin());
+        config.plugins.push(new MiniCssExtractPlugin({ filename: '[name].[hash].css' }));
         
     } else {
         config.mode = 'development';
