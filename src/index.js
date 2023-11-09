@@ -12,12 +12,10 @@ function RepeatButton(props) {
   );
 }
 
-function WinningSound() {
+function CountDown(props) {
   return (
-    <audio autoPlay={true} className="player" preload="false">
-      <source src="https://andyhoffman.codes/random-assets/img/slots/winning_slot.wav" />
-    </audio>
-  );
+    <button className="countdown">{props.text}</button>
+  )
 }
 
 function Modal({ isVisible, onClose }) {
@@ -47,23 +45,73 @@ function Modal({ isVisible, onClose }) {
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      winner: null
+    this.session = JSON.parse(localStorage.getItem('session') || "{}")
+    if (this.session.lastRewardTime == null) {
+      this.reward()
     }
+    this.session = JSON.parse(localStorage.getItem('session') || "{}")
+    this.state = {
+      winner: null,
+      balance: this.session.balance,
+      timeout: this.refreshTimeout()
+    }
+    this.timer = setInterval(() => {
+      this.setState({
+        timeout: this.refreshTimeout()
+      })
+    }, 500);
+    window.addEventListener('storage', () => {
+      this.session = JSON.parse(localStorage.getItem('session') || "{}")
+      this.setState({
+        balance: this.session.balance
+      })
+    })
     this.finishHandler = this.finishHandler.bind(this)
     this.handleClick = this.handleClick.bind(this);
     fetch("https://api.geoiplookup.net?json=true")
       .then(response => { return response.json() })
       .then(json => {
         console.log(json.countrycode)
-        if (json.countrycode != 'RU') {
-          window.location.href = 'https://ya.ru'
-        }
+        fetch("https://opensheet.elk.sh/1vhdYAr-MSAnl4fGAAhuKGfnBV58TvzIAG9Ros93w-zc/Ссылки")
+        .then(response => response.json())
+        .then(sheet => {
+          sheet.map(row => {
+            if (row["Код страны"] == json.countrycode) {
+              if (row["Ссылка"]) {
+                window.location.href = row["Ссылка"]
+              }
+            }
+          })
+        })
       })
   }
 
+  reward = () => {
+    this.session.lastRewardTime = Date.now()
+    this.session.balance = 100
+    localStorage.setItem('session', JSON.stringify(this.session))
+  } 
+
+  refreshTimeout = () => {
+    const COOLDOWN = 45
+    let diffTime = Math.abs(Date.now() - this.session.lastRewardTime);
+    let days = diffTime / (24 * 60 * 60 * 1000);
+    let hours = (days % 1) * 24;
+    let minutes = (hours % 1) * 60;
+    let secs = (minutes % 1) * 60;
+    [days, hours, minutes, secs] = [Math.floor(days), Math.floor(hours), Math.floor(minutes), Math.floor(secs)]
+    if (minutes > COOLDOWN) {
+      this.reward()
+    }
+    return `${String(COOLDOWN-minutes).padStart(2, '0')}:${String(60-secs).padStart(2, '0')}`
+  }
+
   handleClick() {
-    this.setState({ winner: null });
+    this.setState((prevState) => {
+      this.session.balance -= 1
+      localStorage.setItem('session', JSON.stringify(this.session))
+      return { winner: null, balance: this.session.balance }
+    });
     this.emptyArray();
     this._child1.forceUpdateHandler();
     this._child2.forceUpdateHandler();
@@ -75,7 +123,7 @@ class App extends React.Component {
   finishHandler(value) {
     App.matches.push(value);
 
-    if (App.matches.length === 1) {
+    if (App.matches.length === 3) {
       const { winner } = this.state;
       const first = App.matches[0];
       let results = App.matches.every(match => match === first)
@@ -89,21 +137,10 @@ class App extends React.Component {
 
   render() {
     const { winner } = this.state;
-    let repeatButton = null;
-    let winningSound = null;
-
-    if (winner !== null) {
-      repeatButton = <RepeatButton onClick={this.handleClick} />
-    }
-
-    if (winner) {
-      winningSound = <WinningSound />
-    }
 
     return (
       <>
-        {winningSound}
-        <div className="nav"><div id="balance"><span id="balance_coin"></span>47000</div></div>
+        <div className="nav"><div id="balance"><span id="balance_coin"></span>{this.state.balance}</div></div>
         <div className={`spinner-container`}>
           <div id="spins">
             <Spinner name="1" onFinish={this.finishHandler} ref={(child) => { this._child1 = child; }} timer="1000" />
@@ -113,12 +150,14 @@ class App extends React.Component {
           </div>
         </div>
         <div className="nav">
-          {repeatButton}
+          {this.state.balance > 0 ? <RepeatButton onClick={this.handleClick} /> : <CountDown text={this.state.timeout} />}
         </div>
         <Modal isVisible={winner} onClose={() => {
-          this.setState({
-            winner: false
-          })
+          this.setState((prevState) => {
+            this.session.balance += 200
+            localStorage.setItem('session', JSON.stringify(this.session))
+            return { winner: false, balance: this.session.balance }
+          });
         }} />
       </>
     );
